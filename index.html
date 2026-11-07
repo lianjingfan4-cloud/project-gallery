@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>项目库 · Projects Archive</title>
+<meta name="description" content="个人项目归档索引：AI 智能体、小游戏、科学计算、写作工程与自动化工具。">
+<style>
+  :root{
+    --bg:#08090c; --bg-2:#0d0f14; --fg:#eceef3; --fg-dim:#9aa1ad; --fg-faint:#697080;
+    --a1:#e0a96d; --a1-t:color-mix(in srgb,var(--a1) 85%,white);
+    --line:color-mix(in srgb,var(--fg) 12%,transparent);
+    --line-2:color-mix(in srgb,var(--fg) 22%,transparent);
+    --radius:10px; --s:8px;
+    --ease:cubic-bezier(.22,.61,.36,1); --ease-out:cubic-bezier(.16,1,.3,1);
+    --font-display:"Songti SC","SimSun",Georgia,"Times New Roman",serif;
+    --font-sans:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    --font-mono:ui-monospace,"Cascadia Mono","JetBrains Mono",Consolas,monospace;
+  }
+  html[data-theme="light"]{
+    --bg:#f6f4ef; --bg-2:#efece5; --fg:#14161a; --fg-dim:#4d535e; --fg-faint:#797f8b;
+    --a1:#a4632a; --a1-t:color-mix(in srgb,var(--a1) 90%,black);
+    --line:color-mix(in srgb,var(--fg) 14%,transparent);
+    --line-2:color-mix(in srgb,var(--fg) 26%,transparent);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--fg); font-family:var(--font-sans);
+    font-size:clamp(.94rem,1.05vw,1.02rem); line-height:1.85;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(900px 500px at 78% -10%, color-mix(in srgb,var(--a1) 13%,transparent), transparent 70%),
+      radial-gradient(700px 420px at 8% 8%, color-mix(in srgb,#5b7cfa 9%,transparent), transparent 70%);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 clamp(20px,4vw,48px); position:relative; z-index:1}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50; height:66px; display:flex; align-items:center;
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    background:color-mix(in srgb,var(--bg) 78%,transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{display:flex; align-items:center; gap:18px; width:100%}
+  .brand{font-family:var(--font-mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-dim)}
+  .brand b{color:var(--a1-t); font-weight:600}
+  .nav-spacer{flex:1}
+  .search{
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line);
+    border-radius:999px; padding:6px 14px; background:color-mix(in srgb,var(--fg) 4%,transparent);
+    transition:border-color .2s var(--ease);
+  }
+  .search:focus-within{border-color:color-mix(in srgb,var(--a1) 55%,transparent)}
+  .search input{
+    border:0; outline:0; background:transparent; color:var(--fg); font:inherit; font-size:13px;
+    width:clamp(90px,18vw,190px);
+  }
+  .search input::placeholder{color:var(--fg-faint)}
+  .search svg{width:14px;height:14px;stroke:var(--fg-faint);fill:none;stroke-width:1.8}
+  .icon-btn{
+    width:34px;height:34px;border:1px solid var(--line);border-radius:999px;background:transparent;
+    color:var(--fg-dim);cursor:pointer;display:grid;place-items:center;
+    transition:color .2s var(--ease),border-color .2s var(--ease);
+  }
+  .icon-btn:hover{color:var(--a1-t); border-color:var(--line-2)}
+  .icon-btn:focus-visible{outline:2px solid var(--a1); outline-offset:3px}
+  .icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(64px,10vw,132px) 0 clamp(48px,7vw,88px)}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:10px; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--fg-faint); display:flex; align-items:center; gap:12px; margin-bottom:26px;
+  }
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line); max-width:180px}
+  h1{
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(2.6rem,7.4vw,5.6rem); line-height:.98; letter-spacing:-.02em;
+    max-width:16ch;
+  }
+  h1 em{font-style:italic; color:var(--a1-t); letter-spacing:-.01em}
+  .lede{
+    margin-top:28px; max-width:46ch; color:var(--fg-dim); font-size:clamp(.98rem,1.2vw,1.1rem);
+  }
+  .stats{
+    display:flex; flex-wrap:wrap; gap:clamp(24px,4vw,56px); margin-top:clamp(40px,6vw,64px);
+    border-top:1px solid var(--line); padding-top:26px;
+  }
+  .stat b{
+    display:block; font-family:var(--font-display); font-size:clamp(1.5rem,2.6vw,2rem);
+    font-weight:400; line-height:1.2;
+  }
+  .stat span{font-family:var(--font-mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--fg-faint)}
+
+  /* ---------- section ---------- */
+  .section{padding:clamp(56px,8vw,96px) 0}
+  .sec-head{display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:clamp(32px,4vw,48px)}
+  .kicker{
+    font-family:var(--font-mono); font-size:10px; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--a1-t); opacity:.85;
+  }
+  h2{
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(1.55rem,3vw,2.3rem); line-height:1.12; letter-spacing:-.015em;
+  }
+  .note{color:var(--fg-dim); max-width:60ch; font-size:.95rem}
+
+  /* ---------- cards ---------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr)); gap:clamp(14px,2vw,22px)}
+  .card{
+    position:relative; border:1px solid var(--line); border-radius:var(--radius);
+    background:linear-gradient(180deg,color-mix(in srgb,var(--fg) 4%,transparent),transparent 60%);
+    padding:24px 24px 20px; display:flex; flex-direction:column; gap:14px;
+    transition:border-color .25s var(--ease), transform .25s var(--ease-out), background .25s var(--ease);
+    overflow:hidden;
+  }
+  .card::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:1px;
+    background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--a1) 70%,transparent),transparent);
+    opacity:0; transition:opacity .3s var(--ease);
+  }
+  .card:hover{border-color:var(--line-2); transform:translateY(-3px)}
+  .card:hover::after{opacity:1}
+  .card-top{display:flex; align-items:baseline; gap:12px}
+  .num{
+    font-family:var(--font-mono); font-size:10px; letter-spacing:.12em; color:var(--fg-faint);
+    border:1px solid var(--line); border-radius:4px; padding:2px 6px; line-height:1.6;
+  }
+  .card h3{
+    font-family:var(--font-display); font-weight:400; font-size:1.28rem; letter-spacing:-.01em;
+    line-height:1.3;
+  }
+  .card h3 small{
+    display:block; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--fg-faint); margin-top:4px;
+  }
+  .card p{color:var(--fg-dim); font-size:.92rem; line-height:1.8}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px}
+  .chip{
+    font-family:var(--font-mono); font-size:9.5px; letter-spacing:.06em; color:var(--fg-dim);
+    border:1px solid var(--line); border-radius:999px; padding:2px 9px;
+  }
+  .meta{
+    display:flex; align-items:center; gap:14px; border-top:1px solid var(--line);
+    padding-top:14px; margin-top:2px;
+  }
+  .meta .m{font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; color:var(--fg-faint)}
+  .meta a{
+    margin-left:auto; color:var(--a1-t); text-decoration:none; font-size:.86rem;
+    display:inline-flex; align-items:center; gap:6px; transition:gap .2s var(--ease);
+  }
+  .meta a:hover{gap:11px}
+  .meta a:focus-visible{outline:2px solid var(--a1); outline-offset:4px; border-radius:3px}
+  .lock{width:11px;height:11px;stroke:var(--fg-faint);fill:none;stroke-width:1.6}
+
+  /* ---------- detail list ---------- */
+  .cards-plain{display:grid; gap:0; border-top:1px solid var(--line)}
+  .row{
+    display:grid; grid-template-columns:minmax(180px,1fr) 2fr; gap:16px 28px;
+    padding:22px 0; border-bottom:1px solid var(--line); align-items:start;
+  }
+  .row h4{font-family:var(--font-display); font-size:1.05rem; font-weight:400; line-height:1.5}
+  .row h4 span{font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; color:var(--fg-faint); display:block; margin-top:3px}
+  .row p{color:var(--fg-dim); font-size:.9rem}
+  .row .files{font-family:var(--font-mono); font-size:10px; color:var(--fg-faint); margin-top:8px; letter-spacing:.06em}
+
+  /* ---------- footer ---------- */
+  .footer{
+    border-top:1px solid var(--line); padding:clamp(40px,6vw,64px) 0;
+    color:var(--fg-faint); font-family:var(--font-mono); font-size:10px;
+    letter-spacing:.12em; text-transform:uppercase; display:flex; flex-wrap:wrap; gap:14px 28px;
+  }
+  .footer span{opacity:.8}
+
+  .empty{padding:48px 0; color:var(--fg-faint); font-family:var(--font-mono); font-size:12px; letter-spacing:.1em}
+
+  @media (max-width:760px){
+    .row{grid-template-columns:1fr; gap:6px}
+    .nav .brand{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+    html{scroll-behavior:auto}
+  }
+  @media (max-height:1000px){ .hero{padding-top:clamp(48px,7vw,88px)} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand"><b>项目库</b> / projects archive</div>
+    <div class="nav-spacer"></div>
+    <label class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+      <input id="q" type="search" placeholder="搜索仓库或项目…" autocomplete="off" aria-label="搜索">
+    </label>
+    <button class="icon-btn" id="theme" aria-label="切换主题" title="切换明暗">
+      <svg id="theme-icon" viewBox="0 0 24 24"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="eyebrow">est. 2025 — 2026 · personal</div>
+    <h1>一个人写给自己的<br><em>七个仓库</em></h1>
+    <p class="lede">
+      从 AI 智能体到纯前端小游戏，从黑洞光线追踪到长篇小说排版流水线。
+      这里是从本地近二十个项目目录里挑出来、按主题重新归档的那一部分。
+    </p>
+    <div class="stats">
+      <div class="stat"><b>7</b><span>repositories</span></div>
+      <div class="stat"><b>32</b><span>projects</span></div>
+      <div class="stat"><b>3,888</b><span>files</span></div>
+      <div class="stat"><b>MIT</b><span>license</span></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="repos">
+    <div class="sec-head">
+      <div class="kicker">01 — 索引</div>
+      <h2>主题分册</h2>
+      <p class="note">每个仓库是一个主题，内部保持各子项目独立成目录，可以单独取用。仓库均为私有，链接需要登录对应账号。</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="sec-head">
+      <div class="kicker">02 — 明细</div>
+      <h2>仓库概览</h2>
+      <p class="note">文件数与体积为入库后的统计，不含被 .gitignore 挡在外面的视频、音频、安装包与扫描件。</p>
+    </div>
+    <div class="cards-plain" id="rows"></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="sec-head">
+      <div class="kicker">03 — 原则</div>
+      <h2>整理时守的三条线</h2>
+    </div>
+    <div class="cards-plain">
+      <div class="row">
+        <h4>只收代码与文档<span>code & docs only</span></h4>
+        <p>视频、音频、安装包、模型权重、扫描版 PDF 一律不入库，用 .gitignore 明确声明。仓库保持轻量，克隆一次几秒钟。</p>
+      </div>
+      <div class="row">
+        <h4>隐私数据先剔除<span>privacy first</span></h4>
+        <p>聊天记录、照片、证件与个人材料不进入任何仓库。所有仓库默认私有，是否公开由本人决定。</p>
+      </div>
+      <div class="row">
+        <h4>保留原始结构<span>keep the structure</span></h4>
+        <p>不做重写、不改叫法。各子项目维持原生目录与文件名，减少日后对不上号的可能。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer wrap">
+  <span>项目库 · 整理于 <span id="year"></span></span>
+  <span>GitHub Pages</span>
+  <span id="count-note"></span>
+</footer>
+
+<script>
+const REPOS = [
+  {
+    id:"ai-agents", name:"AI Agents", cn:"智能体与本地大模型应用", num:"01",
+    desc:"把大模型做成能干活的东西：一个会「学人」的本地聊天室，一个会「查故障」的多智能体诊断系统。",
+    tags:["Python","LLM","Multi-Agent","Local-first"],
+    items:["AI 人聊天 · 人格学习聊天室","Abaqus 仿真故障多智能体诊断"],
+    files:58, mb:"0.2"
+  },
+  {
+    id:"mini-games", name:"Mini Games", cn:"纯前端小游戏与解谜合集", num:"02",
+    desc:"一百多款打开就能玩的小游戏与互动解谜小说。零依赖、零外部素材、可离线运行，双击 index.html 即玩。",
+    tags:["HTML5","Canvas","Web Audio","Offline"],
+    items:["迷你游戏博物馆 · 51 款","鲸鱼游戏集 · 49 款","狼人杀 · 多 Agent 联机","克苏鲁解谜两部","四个单文件策略/解谜"],
+    files:389, mb:"1.7"
+  },
+  {
+    id:"simulation-lab", name:"Simulation Lab", cn:"模拟、生成器与物理可视化", num:"03",
+    desc:"从多智能体文明演化到黑洞光线追踪、大气光学建模：一批可运行、可复现、可验证的计算实验。",
+    tags:["Python","Physics","Simulation","Visualization"],
+    items:["civ-sim · 多智能体文明模拟","黑洞测地线光追渲染器","幻昼 · 大气光学模型","人类文明年轮 · 5016 条事件","神曲·地狱篇 文字冒险","梦境日记解析器","逻辑谜题生成器（求解器校验）","博物馆国宝全书生成器","silentstar · 文字游戏引擎"],
+    files:639, mb:"112.5"
+  },
+  {
+    id:"science-lab", name:"Science Lab", cn:"航空航天与工程仿真", num:"04",
+    desc:"被 AI 带着跑出来的一批硬核实验：C919 机身骨架建模、FEniCS 有限元、量子力学、Abaqus 算例与 Fluent 喷管设计。",
+    tags:["Abaqus","FEniCS","CFD","MATLAB"],
+    items:["AI 带我畅游科学 · C919 骨架等","Abaqus 经典例题集 · 曲柄/切削/声辐射"],
+    files:179, mb:"37.0"
+  },
+  {
+    id:"matlab-audio", name:"MATLAB Audio", cn:"乐谱演奏与图像批处理", num:"05",
+    desc:"两个纯 MATLAB 的作品：一个把 MusicXML/MIDI 乐谱变成钢琴演奏与可打印曲谱，一个做照片锐化与自动分拣。",
+    tags:["MATLAB","合成器","MusicXML","图像处理"],
+    items:["钢琴项目 · 自动演奏 + 简谱/五线谱导出","图像工具 · 批量锐化与分拣"],
+    files:71, mb:"0.6"
+  },
+  {
+    id:"writing-and-notes", name:"Writing & Notes", cn:"长篇小说与知识手册", num:"06",
+    desc:"写作工程化的一批产物：小说正文与排版流水线、一部 AI 哲学书的写作大纲、一套地理辨识手册。",
+    tags:["Writing","python-docx","Publishing","Docs"],
+    items:["小说作品（三部）","小说排版工具链 · 文本转 PDF","AI 哲学书稿工程 · 项目圣经","GeoGuessr 全球辨识手册"],
+    files:2398, mb:"63.8"
+  },
+  {
+    id:"tools-and-automation", name:"Tools & Automation", cn:"个人自动化工具", num:"07",
+    desc:"给自己造的两件基础设施：一个全自动写日记的双端系统，一个不存图片只存配方的无限壁纸引擎。",
+    tags:["Kotlin","Android","Python","Privacy"],
+    items:["AutoDiary · 安卓采集 + PC 写作","织色 Tessera · 无限壁纸（安卓/桌面）"],
+    files:154, mb:"3.8"
+  }
+];
+
+const grid = document.getElementById("grid");
+const rows = document.getElementById("rows");
+
+function cardHTML(r){
+  return `<article class="card" data-key="${(r.id+" "+r.cn+" "+r.items.join(" ")+" "+r.tags.join(" ")).toLowerCase()}">
+    <div class="card-top">
+      <span class="num">${r.num}</span>
+      <h3>${r.name}<small>${r.cn}</small></h3>
+    </div>
+    <p>${r.desc}</p>
+    <div class="chips">${r.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+    <div class="meta">
+      <span class="m">${r.files} files · ${r.mb} MB</span>
+      <a href="https://github.com/lianjingfan4-cloud/${r.id}" target="_blank" rel="noopener">
+        <svg class="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        打开仓库 →
+      </a>
+    </div>
+  </article>`;
+}
+
+function rowHTML(r){
+  return `<div class="row">
+    <h4>${r.cn}<span>${r.id}</span></h4>
+    <div>
+      <p>${r.items.join("　·　")}</p>
+      <div class="files">${r.files} 个文件 · ${r.mb} MB · ${r.tags.join(" / ")}</div>
+    </div>
+  </div>`;
+}
+
+grid.innerHTML = REPOS.map(cardHTML).join("");
+rows.innerHTML = REPOS.map(rowHTML).join("");
+
+/* 搜索 */
+const q = document.getElementById("q");
+q.addEventListener("input", () => {
+  const v = q.value.trim().toLowerCase();
+  let n = 0;
+  document.querySelectorAll(".card").forEach(el => {
+    const hit = !v || el.dataset.key.includes(v);
+    el.style.display = hit ? "" : "none";
+    if (hit) n++;
+  });
+  document.getElementById("count-note").textContent = v ? `匹配 ${n} 个仓库` : "";
+  let empty = document.querySelector(".empty");
+  if (n === 0 && !empty) {
+    empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "没有匹配的仓库 —— 换个关键词试试。";
+    grid.after(empty);
+  } else if (n > 0 && empty) empty.remove();
+});
+
+/* 主题 */
+const root = document.documentElement;
+const saved = localStorage.getItem("theme");
+if (saved) root.dataset.theme = saved;
+document.getElementById("theme").addEventListener("click", () => {
+  const next = root.dataset.theme === "light" ? "dark" : "light";
+  root.dataset.theme = next;
+  localStorage.setItem("theme", next);
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* 入场 */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting){ e.target.style.opacity = 1; e.target.style.transform = "none"; io.unobserve(e.target);} });
+}, {threshold:.12});
+document.querySelectorAll(".card").forEach((el,i) => {
+  el.style.opacity = 0; el.style.transform = "translateY(18px)";
+  el.style.transition = "opacity .5s var(--ease-out), transform .5s var(--ease-out), border-color .25s var(--ease)";
+  el.style.transitionDelay = (i%6)*60 + "ms";
+  io.observe(el);
+});
+</script>
+</body>
+</html>
