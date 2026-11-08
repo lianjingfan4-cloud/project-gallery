@@ -71,7 +71,7 @@
   .icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
 
   /* ---------- hero ---------- */
-  .hero{padding-block:clamp(64px,10vw,132px) clamp(48px,7vw,88px)}
+  .hero{padding-block:clamp(56px,8vw,112px) clamp(36px,5vw,60px)}
   .eyebrow{
     font-family:var(--font-mono); font-size:10px; letter-spacing:.26em; text-transform:uppercase;
     color:var(--fg-faint); display:flex; align-items:center; gap:12px; margin-bottom:26px;
@@ -181,6 +181,7 @@
   @media (max-width:760px){
     .row{grid-template-columns:1fr; gap:6px}
     .nav .brand{display:none}
+    .stats{display:grid; grid-template-columns:1fr 1fr; gap:22px 14px}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
