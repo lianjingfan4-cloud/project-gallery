@@ -1,0 +1,32 @@
+﻿[
+    {
+        "name":  "live-desktop",
+        "width":  1440,
+        "height":  1000,
+        "wait":  2500,
+        "freeze":  true
+    },
+    {
+        "name":  "live-mobile",
+        "width":  390,
+        "height":  844,
+        "wait":  1800,
+        "freeze":  true
+    },
+    {
+        "name":  "live-light",
+        "width":  1440,
+        "height":  1000,
+        "wait":  1200,
+        "freeze":  true,
+        "evalBefore":  "document.getElementById(\u0027theme\u0027).click()"
+    },
+    {
+        "name":  "live-rows",
+        "width":  1440,
+        "height":  1000,
+        "wait":  1200,
+        "freeze":  true,
+        "sel":  "#rows"
+    }
+]
